@@ -58,3 +58,7 @@ AppsSwitch/
 Voir `PLAN.md` pour le détail des phases et `TODOS.md` pour ce qui reste (icône, première release, extension éventuelle du scope).
 
 Voir aussi `MEMORY.md`, `CHANGES.md`, `ARCHITECTURE.md` (`ARCHITECTURE_EN.md` en anglais, source de vérité).
+
+## License
+
+MIT © 2026 Vincent Lauriat — see [LICENSE](LICENSE).
