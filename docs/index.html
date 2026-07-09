@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AppsSwitch — Alt-Tab style window switcher for macOS</title>
+<meta name="description" content="A native macOS menu bar app that cycles through every individual open window — not just apps — via ⌥Tab / ⌥⇧Tab, with a live-thumbnail overlay powered by ScreenCaptureKit.">
+<meta property="og:title" content="AppsSwitch">
+<meta property="og:description" content="Alt-Tab style window switcher for macOS. Cycles through every open window, not just apps, with a live-thumbnail overlay.">
+<meta property="og:image" content="https://vincentlauriat.github.io/AppsSwitch/icon-512.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon-512.png">
+<style>
+  :root{
+    --bg:#0c0a16; --bg2:#100d20; --panel:#171029; --line:#2a2049;
+    --txt:#efeaff; --muted:#ac9fd6; --faint:#786a9e;
+    --accent:#9d7bff; --accent2:#6d5bd0; --accent-soft:rgba(157,123,255,.14);
+    --maxw:1100px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,"Cascadia Code",monospace}
+
+  nav{position:sticky;top:0;z-index:20;backdrop-filter:saturate(160%) blur(12px);background:rgba(12,10,22,.74);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:750;letter-spacing:-.2px}
+  .logo{width:32px;height:32px;border-radius:9px;overflow:hidden;box-shadow:0 4px 14px rgba(109,93,208,.4)}
+  .logo img{width:100%;height:100%;display:block}
+  .nav-links{display:flex;gap:24px;align-items:center;color:var(--muted);font-size:14.5px}
+  .nav-links a:hover{color:var(--txt)}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:11px;font-weight:650;font-size:15px;transition:transform .12s ease,box-shadow .12s ease,background .12s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn-primary{background:linear-gradient(135deg,#6d5bd0,#9d7bff);color:#fff;box-shadow:0 6px 22px rgba(109,93,208,.4)}
+  .btn-ghost{border:1px solid var(--line);color:var(--txt);background:transparent}
+  .btn-ghost:hover{border-color:#3a2d63;background:var(--panel)}
+  .btn-sm{padding:8px 15px;font-size:14px;border-radius:9px}
+
+  header{padding:74px 0 36px;background:radial-gradient(900px 420px at 80% -10%,rgba(157,123,255,.2),transparent 60%),radial-gradient(600px 300px at 10% 10%,rgba(157,123,255,.08),transparent 60%)}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:6px 13px;border-radius:999px;font-size:13px;margin-bottom:22px}
+  .pill .led{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+  h1{font-size:clamp(36px,5.4vw,57px);line-height:1.05;font-weight:820;letter-spacing:-1.6px}
+  h1 .grad{background:linear-gradient(120deg,#c8b6ff,#9d7bff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{max-width:540px;margin:20px 0 0;font-size:clamp(16px,2vw,19px);color:var(--muted)}
+  .cta{display:flex;gap:13px;flex-wrap:wrap;margin:30px 0 14px}
+  .meta{color:var(--faint);font-size:13px;display:flex;flex-wrap:wrap;gap:6px 14px}
+  .meta b{color:var(--muted);font-weight:600}
+
+  .hero-shot{position:relative;display:flex;align-items:center;justify-content:center}
+  .stack{position:relative;width:100%;max-width:360px;aspect-ratio:1/1}
+  .stack .win{position:absolute;border-radius:14px;border:1px solid var(--line);background:linear-gradient(145deg,#1b1433,#120e24);box-shadow:0 30px 70px rgba(0,0,0,.6)}
+  .stack .win.w1{width:78%;height:56%;left:0;top:6%;opacity:.55}
+  .stack .win.w2{width:78%;height:56%;left:11%;top:22%;opacity:.78}
+  .stack .win.w3{width:78%;height:56%;left:22%;top:38%;display:flex;align-items:center;justify-content:center}
+  .stack .win.w3 img{width:44%;border-radius:20%}
+
+  section{padding:74px 0;border-top:1px solid var(--line)}
+  .eyebrow{color:var(--accent);font-weight:700;font-size:12.5px;letter-spacing:1.4px;text-transform:uppercase}
+  .center{text-align:center}.center .eyebrow{display:block}
+  h2{font-size:clamp(27px,3.7vw,38px);font-weight:800;letter-spacing:-.7px;margin:9px 0 12px}
+  .lead{color:var(--muted);max-width:640px;font-size:17px}
+  .center .lead{margin-left:auto;margin-right:auto}
+
+  .grid{display:grid;gap:16px;margin-top:42px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;transition:border-color .15s,transform .15s}
+  .card:hover{border-color:#3a2d63;transform:translateY(-2px)}
+  .card h3{font-size:16.5px;margin-bottom:5px;letter-spacing:-.2px}
+  .card p{color:var(--muted);font-size:14.5px}
+  .ico{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font-size:21px;margin-bottom:14px}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:42px;counter-reset:s}
+  .step{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;position:relative}
+  .step::before{counter-increment:s;content:counter(s);position:absolute;top:-14px;left:22px;width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#6d5bd0,#9d7bff);color:#fff;font-weight:800;display:grid;place-items:center;font-size:15px}
+  .step h3{margin:6px 0 5px;font-size:16px}
+  .step p{color:var(--muted);font-size:14.5px}
+  .step code{background:#060512;color:var(--accent);border-radius:6px;padding:2px 7px;font:12.5px/1.4 ui-monospace,Menlo,monospace}
+
+  .final{text-align:center;background:radial-gradient(620px 300px at 50% 120%,rgba(157,123,255,.2),transparent 64%)}
+  .final .cta{justify-content:center}
+  footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);font-size:14px;text-align:center}
+  footer a{color:var(--accent);font-weight:600}
+  code{background:#060512;border:1px solid var(--line);border-radius:6px;padding:2px 7px;font:13px/1.4 ui-monospace,Menlo,monospace;color:var(--accent)}
+
+  @media(max-width:880px){.hero-grid{grid-template-columns:1fr;gap:30px}.g3,.steps{grid-template-columns:1fr}.nav-links a:not(.btn){display:none}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><span class="logo"><img src="icon-512.png" alt=""></span>AppsSwitch</a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#install">Install</a>
+    <a href="https://github.com/vincentlauriat/AppsSwitch">GitHub</a>
+    <a class="btn btn-primary btn-sm" href="https://github.com/vincentlauriat/AppsSwitch/releases/latest">Download</a>
+  </div>
+</div></nav>
+
+<header id="top"><div class="wrap">
+  <div class="hero-grid">
+    <div>
+      <span class="pill"><span class="led"></span> Hold ⌥ and press <b>Tab</b> — from your menu bar</span>
+      <h1>Every window,<br><span class="grad">not just apps.</span></h1>
+      <p class="sub">Cmd-Tab only cycles between apps. If Terminal has 4 windows open and another app has 2, Cmd-Tab offers 2 slots — AppsSwitch offers 6, Windows Alt-Tab style, with a live thumbnail of every window.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://github.com/vincentlauriat/AppsSwitch/releases/latest">⬇︎ Download for macOS</a>
+        <a class="btn btn-ghost" href="https://github.com/vincentlauriat/AppsSwitch">View on GitHub</a>
+      </div>
+      <p class="meta"><b>Free</b> · macOS 26+ · Signed &amp; notarized</p>
+    </div>
+    <div class="hero-shot">
+      <div class="stack">
+        <div class="win w1"></div>
+        <div class="win w2"></div>
+        <div class="win w3"><img src="icon-512.png" alt="AppsSwitch app icon"></div>
+      </div>
+    </div>
+  </div>
+</div></header>
+
+<section id="features"><div class="wrap">
+  <div class="center">
+    <p class="eyebrow">features</p>
+    <h2>Every window is one Tab away</h2>
+    <p class="lead">Built on ScreenCaptureKit and a CGEventTap that owns the ⌥Tab gesture — no accessibility hacks, no third-party hotkey library.</p>
+  </div>
+  <div class="grid g3">
+    <div class="card"><div class="ico">🔄</div><h3>Cycle every window</h3><p>⌥Tab moves forward, ⌥⇧Tab moves back, through every individual open window — not just between apps.</p></div>
+    <div class="card"><div class="ico">🖼️</div><h3>Live thumbnails</h3><p>Each window is captured live via ScreenCaptureKit — a real preview, not a stale app icon.</p></div>
+    <div class="card"><div class="ico">🎯</div><h3>Exact activation</h3><p>Releasing Option activates exactly the window you selected — not just the app's frontmost window.</p></div>
+    <div class="card"><div class="ico">🔐</div><h3>Guided permissions</h3><p>A friendly onboarding requests Accessibility and Screen Recording, with deep links straight to System Settings.</p></div>
+    <div class="card"><div class="ico">⌨️</div><h3>Keyboard-first</h3><p><code>⌥Tab</code> / <code>⌥⇧Tab</code> to cycle, release Option to activate, <code>Esc</code> to cancel.</p></div>
+    <div class="card"><div class="ico">📍</div><h3>Menu bar only</h3><p>No dock icon, no main window — just a quiet menu bar item to check permissions or quit.</p></div>
+  </div>
+</div></section>
+
+<section id="install"><div class="wrap">
+  <div class="center">
+    <p class="eyebrow">get started</p>
+    <h2>Up and running in 30 seconds</h2>
+    <p class="lead">Signed, notarized and Hardened-Runtime — it opens without any Gatekeeper warning.</p>
+  </div>
+  <div class="steps">
+    <div class="step"><h3>Download</h3><p>Grab the latest <code>.dmg</code> from GitHub Releases and mount it.</p></div>
+    <div class="step"><h3>Install</h3><p>Drag <code>AppsSwitch.app</code> into <code>/Applications</code>.</p></div>
+    <div class="step"><h3>Launch</h3><p>Open it, grant Accessibility &amp; Screen Recording when asked. Requires macOS 26 or later.</p></div>
+  </div>
+</div></section>
+
+<section class="final"><div class="wrap">
+  <p class="eyebrow">ready?</p>
+  <h2>Stop hunting for the right window</h2>
+  <p class="lead" style="margin:0 auto 6px">Free and native. macOS 26 or later.</p>
+  <div class="cta">
+    <a class="btn btn-primary" href="https://github.com/vincentlauriat/AppsSwitch/releases/latest">⬇︎ Download for macOS</a>
+    <a class="btn btn-ghost" href="https://github.com/vincentlauriat/AppsSwitch#readme">Read the docs</a>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  AppsSwitch · © 2026 Vincent Lauriat ·
+  <a href="https://github.com/vincentlauriat/AppsSwitch">github.com/vincentlauriat/AppsSwitch</a>
+  · <a href="https://lauriat.fr/outils/appsswitch/">lauriat.fr</a>
+</div></footer>
+
+</body>
+</html>
