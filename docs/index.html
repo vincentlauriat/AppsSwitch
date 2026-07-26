@@ -91,32 +91,48 @@
   code{background:#12040c;border:1px solid var(--line);border-radius:6px;padding:2px 7px;font:13px/1.4 var(--font-mono);color:var(--accent)}
 
   @media(max-width:880px){.hero-grid{grid-template-columns:1fr;gap:30px}.g3,.steps{grid-template-columns:1fr}.nav-links a:not(.btn){display:none}}
+
+  .langtog{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;flex:none}
+  .langtog button{background:transparent;border:0;color:var(--muted);font:600 12.5px/1 var(--font-mono);
+    padding:0 10px;min-height:36px;cursor:pointer}
+  .langtog button+button{border-left:1px solid var(--line)}
+  .langtog button:hover{color:var(--txt)}
+  .langtog button.on{background:var(--accent);color:var(--on-accent)}
+  /* En francais les libelles de nav sont plus longs qu'en anglais : sous 600px
+     la barre deborde de quelques pixels. On resserre le selecteur plutot que
+     de raccourcir un libelle correct. */
+  @media(max-width:600px){.langtog button{padding:0 7px;font-size:11.5px}}
 </style>
 </head>
 <body>
-<a class="skip" href="#top">Skip to content</a>
+<a class="skip" href="#top"><span class="en">Skip to content</span><span class="fr">Aller au contenu</span><span class="zh">跳至內容</span></a>
 
 <nav><div class="wrap">
   <a class="brand" href="#top"><span class="logo"><img src="icon-512.png" alt=""></span>AppsSwitch</a>
   <div class="nav-links">
-    <a href="#features">Features</a>
-    <a href="#install">Install</a>
+    <a href="#features"><span class="en">Features</span><span class="fr">Fonctions</span><span class="zh">功能</span></a>
+    <a href="#install"><span class="en">Install</span><span class="fr">Installer</span><span class="zh">安裝</span></a>
     <a href="https://github.com/vincentlauriat/AppsSwitch">GitHub</a>
-    <a class="btn btn-primary btn-sm" href="https://github.com/vincentlauriat/AppsSwitch/releases/latest">Download</a>
+    <div class="langtog" role="group" aria-label="Language / Langue / 語言">
+    <button type="button" data-lang="en" class="on" onclick="setLang('en')">EN</button>
+    <button type="button" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button type="button" data-lang="zh" onclick="setLang('zh')">中文</button>
+  </div>
+    <a class="btn btn-primary btn-sm" href="https://github.com/vincentlauriat/AppsSwitch/releases/latest"><span class="en">Download</span><span class="fr">Télécharger</span><span class="zh">下載</span></a>
   </div>
 </div></nav>
 
 <header id="top"><div class="wrap">
   <div class="hero-grid">
     <div>
-      <span class="pill"><span class="led"></span> Hold ⌥ and press <b>Tab</b> — from your menu bar</span>
-      <h1>Every window,<br><span class="grad">not just apps.</span></h1>
-      <p class="sub">Cmd-Tab only cycles between apps. If Terminal has 4 windows open and another app has 2, Cmd-Tab offers 2 slots — AppsSwitch offers 6, Windows Alt-Tab style, with a live thumbnail of every window.</p>
+      <span class="pill"><span class="led"></span> <span class="en">Hold ⌥ and press <b>Tab</b> — from your menu bar</span><span class="fr">Maintenez ⌥ et appuyez sur <b>Tab</b> — depuis la barre de menus</span><span class="zh">按住 ⌥ 再按 <b>Tab</b>——就在你的選單列</span></span>
+      <h1><span class="en">Every window,<br><span class="grad">not just apps.</span></span><span class="fr">Toutes les fenêtres,<br><span class="grad">pas seulement les apps.</span></span><span class="zh">每一個視窗，<span class="grad">而不只是應用程式。</span></span></h1>
+      <p class="sub"><span class="en">Cmd-Tab only cycles between apps. If Terminal has 4 windows open and another app has 2, Cmd-Tab offers 2 slots — AppsSwitch offers 6, Windows Alt-Tab style, with a live thumbnail of every window.</span><span class="fr">Cmd-Tab ne circule qu'entre les apps. Si Terminal a 4 fenêtres ouvertes et une autre app 2, Cmd-Tab propose 2 entrées — AppsSwitch en propose 6, à la façon d'Alt-Tab sous Windows, avec une miniature live de chaque fenêtre.</span><span class="zh">Cmd-Tab 只在應用程式之間循環。若終端機開了 4 個視窗、另一個 app 開了 2 個，Cmd-Tab 只給你 2 個選項——AppsSwitch 給你 6 個，像 Windows 的 Alt-Tab 一樣，每個視窗都附即時縮圖。</span></p>
       <div class="cta">
-        <a class="btn btn-primary" href="https://github.com/vincentlauriat/AppsSwitch/releases/latest">⬇︎ Download for macOS</a>
-        <a class="btn btn-ghost" href="https://github.com/vincentlauriat/AppsSwitch">View on GitHub</a>
+        <a class="btn btn-primary" href="https://github.com/vincentlauriat/AppsSwitch/releases/latest">⬇︎ <span class="en">Download for macOS</span><span class="fr">Télécharger pour macOS</span><span class="zh">下載 macOS 版</span></a>
+        <a class="btn btn-ghost" href="https://github.com/vincentlauriat/AppsSwitch"><span class="en">View on GitHub</span><span class="fr">Voir sur GitHub</span><span class="zh">在 GitHub 上檢視</span></a>
       </div>
-      <p class="meta"><b>Free &amp; open-source (MIT)</b> · macOS 26+ · Signed &amp; notarized</p>
+      <p class="meta"><span class="en"><b>Free &amp; open-source (MIT)</b> · macOS 26+ · Signed &amp; notarized</span><span class="fr"><b>Gratuit et open source (MIT)</b> · macOS 26+ · Signé et notarié</span><span class="zh"><b>免費開源（MIT）</b> · macOS 26+ · 已簽章與公證</span></p>
     </div>
     <div class="hero-shot">
       <div class="stack">
@@ -130,48 +146,76 @@
 
 <section id="features"><div class="wrap">
   <div class="center">
-    <p class="eyebrow">features</p>
-    <h2>Every window is one Tab away</h2>
-    <p class="lead">Built on ScreenCaptureKit and a CGEventTap that owns the ⌥Tab gesture — no accessibility hacks, no third-party hotkey library.</p>
+    <p class="eyebrow"><span class="en">features</span><span class="fr">fonctions</span><span class="zh">功能</span></p>
+    <h2><span class="en">Every window is one Tab away</span><span class="fr">Chaque fenêtre à une touche Tab</span><span class="zh">每個視窗都只差一個 Tab</span></h2>
+    <p class="lead"><span class="en">Built on ScreenCaptureKit and a CGEventTap that owns the ⌥Tab gesture — no accessibility hacks, no third-party hotkey library.</span><span class="fr">Bâtie sur ScreenCaptureKit et un CGEventTap qui possède le geste ⌥Tab — sans bidouille d'accessibilité, sans bibliothèque de raccourcis tierce.</span><span class="zh">以 ScreenCaptureKit 與一個掌握 ⌥Tab 手勢的 CGEventTap 打造——不靠輔助使用的取巧手法，也不用第三方快速鍵函式庫。</span></p>
   </div>
   <div class="grid g3">
-    <div class="card"><div class="ico">🔄</div><h3>Cycle every window</h3><p>⌥Tab moves forward, ⌥⇧Tab moves back, through every individual open window — not just between apps.</p></div>
-    <div class="card"><div class="ico">🖼️</div><h3>Live thumbnails</h3><p>Each window is captured live via ScreenCaptureKit — a real preview, not a stale app icon.</p></div>
-    <div class="card"><div class="ico">🎯</div><h3>Exact activation</h3><p>Releasing Option activates exactly the window you selected — not just the app's frontmost window.</p></div>
-    <div class="card"><div class="ico">🔐</div><h3>Guided permissions</h3><p>A friendly onboarding requests Accessibility and Screen Recording, with deep links straight to System Settings.</p></div>
-    <div class="card"><div class="ico">⌨️</div><h3>Keyboard-first</h3><p><code>⌥Tab</code> / <code>⌥⇧Tab</code> to cycle, release Option to activate, <code>Esc</code> to cancel.</p></div>
-    <div class="card"><div class="ico">📍</div><h3>Menu bar only</h3><p>No dock icon, no main window — just a quiet menu bar item to check permissions or quit.</p></div>
+    <div class="card"><div class="ico">🔄</div><h3><span class="en">Cycle every window</span><span class="fr">Circulez entre toutes les fenêtres</span><span class="zh">循環切換每個視窗</span></h3><p><span class="en">⌥Tab moves forward, ⌥⇧Tab moves back, through every individual open window — not just between apps.</span><span class="fr">⌥Tab avance, ⌥⇧Tab recule, à travers chaque fenêtre ouverte — pas seulement entre les apps.</span><span class="zh">⌥Tab 往前、⌥⇧Tab 往後，逐一走過每個開啟中的視窗——而不只是在應用程式之間。</span></p></div>
+    <div class="card"><div class="ico">🖼️</div><h3><span class="en">Live thumbnails</span><span class="fr">Miniatures en direct</span><span class="zh">即時縮圖</span></h3><p><span class="en">Each window is captured live via ScreenCaptureKit — a real preview, not a stale app icon.</span><span class="fr">Chaque fenêtre est capturée en direct via ScreenCaptureKit — un vrai aperçu, pas une icône figée.</span><span class="zh">每個視窗都透過 ScreenCaptureKit 即時擷取——是真正的預覽，而不是一張過時的應用程式圖示。</span></p></div>
+    <div class="card"><div class="ico">🎯</div><h3><span class="en">Exact activation</span><span class="fr">Activation exacte</span><span class="zh">精準切換</span></h3><p><span class="en">Releasing Option activates exactly the window you selected — not just the app's frontmost window.</span><span class="fr">Relâcher Option active exactement la fenêtre choisie — pas seulement la fenêtre au premier plan de l'app.</span><span class="zh">放開 Option 鍵，啟用的正是你選中的那個視窗——而不只是該應用程式最前面的視窗。</span></p></div>
+    <div class="card"><div class="ico">🔐</div><h3><span class="en">Guided permissions</span><span class="fr">Autorisations guidées</span><span class="zh">引導式權限設定</span></h3><p><span class="en">A friendly onboarding requests Accessibility and Screen Recording, with deep links straight to System Settings.</span><span class="fr">Un accueil clair demande l'Accessibilité et l'Enregistrement de l'écran, avec des liens directs vers les Réglages Système.</span><span class="zh">友善的引導流程會請求「輔助使用」與「螢幕錄製」權限，並提供直接跳往系統設定的連結。</span></p></div>
+    <div class="card"><div class="ico">⌨️</div><h3><span class="en">Keyboard-first</span><span class="fr">Tout au clavier</span><span class="zh">以鍵盤為先</span></h3><p><span class="en"><code>⌥Tab</code> / <code>⌥⇧Tab</code> to cycle, release Option to activate, <code>Esc</code> to cancel.</span><span class="fr"><code>⌥Tab</code> / <code>⌥⇧Tab</code> pour circuler, relâchez Option pour activer, <code>Échap</code> pour annuler.</span><span class="zh">以 <code>⌥Tab</code>／<code>⌥⇧Tab</code> 循環，放開 Option 即切換，按 <code>Esc</code> 取消。</span></p></div>
+    <div class="card"><div class="ico">📍</div><h3><span class="en">Menu bar only</span><span class="fr">Barre de menus uniquement</span><span class="zh">只待在選單列</span></h3><p><span class="en">No dock icon, no main window — just a quiet menu bar item to check permissions or quit.</span><span class="fr">Pas d'icône dans le Dock, pas de fenêtre principale — juste un élément discret en barre de menus pour vérifier les autorisations ou quitter.</span><span class="zh">沒有 Dock 圖示，也沒有主視窗——只有一個安靜的選單列項目，用來檢查權限或結束程式。</span></p></div>
   </div>
 </div></section>
 
 <section id="install"><div class="wrap">
   <div class="center">
-    <p class="eyebrow">get started</p>
-    <h2>Up and running in 30 seconds</h2>
-    <p class="lead">Signed, notarized and Hardened-Runtime — it opens without any Gatekeeper warning.</p>
+    <p class="eyebrow"><span class="en">get started</span><span class="fr">démarrer</span><span class="zh">開始使用</span></p>
+    <h2><span class="en">Up and running in 30 seconds</span><span class="fr">Opérationnel en 30 secondes</span><span class="zh">30 秒內開始使用</span></h2>
+    <p class="lead"><span class="en">Signed, notarized and Hardened-Runtime — it opens without any Gatekeeper warning.</span><span class="fr">Signée, notariée et en Hardened Runtime — elle s'ouvre sans aucun avertissement Gatekeeper.</span><span class="zh">已簽章、已公證並啟用 Hardened Runtime——開啟時不會出現任何 Gatekeeper 警告。</span></p>
   </div>
   <div class="steps">
-    <div class="step"><h3>Download</h3><p>Grab the latest <code>.dmg</code> from GitHub Releases and mount it.</p></div>
-    <div class="step"><h3>Install</h3><p>Drag <code>AppsSwitch.app</code> into <code>/Applications</code>.</p></div>
-    <div class="step"><h3>Launch</h3><p>Open it, grant Accessibility &amp; Screen Recording when asked. Requires macOS 26 or later.</p></div>
+    <div class="step"><h3><span class="en">Download</span><span class="fr">Télécharger</span><span class="zh">下載</span></h3><p><span class="en">Grab the latest <code>.dmg</code> from GitHub Releases and mount it.</span><span class="fr">Récupérez le dernier <code>.dmg</code> depuis GitHub Releases et montez-le.</span><span class="zh">從 GitHub Releases 取得最新的 <code>.dmg</code> 並掛載。</span></p></div>
+    <div class="step"><h3><span class="en">Install</span><span class="fr">Installer</span><span class="zh">安裝</span></h3><p><span class="en">Drag <code>AppsSwitch.app</code> into <code>/Applications</code>.</span><span class="fr">Glissez <code>AppsSwitch.app</code> dans <code>/Applications</code>.</span><span class="zh">將 <code>AppsSwitch.app</code> 拖入 <code>/Applications</code>。</span></p></div>
+    <div class="step"><h3><span class="en">Launch</span><span class="fr">Lancer</span><span class="zh">啟動</span></h3><p><span class="en">Open it, grant Accessibility &amp; Screen Recording when asked. Requires macOS 26 or later.</span><span class="fr">Ouvrez-la et accordez l'Accessibilité et l'Enregistrement de l'écran quand c'est demandé. Nécessite macOS 26 ou ultérieur.</span><span class="zh">開啟它，並在詢問時授予「輔助使用」與「螢幕錄製」權限。需要 macOS 26 或以上版本。</span></p></div>
   </div>
 </div></section>
 
 <section class="final"><div class="wrap">
-  <p class="eyebrow">ready?</p>
-  <h2>Stop hunting for the right window</h2>
-  <p class="lead" style="margin:0 auto 6px">Free and native. macOS 26 or later.</p>
+  <p class="eyebrow"><span class="en">ready?</span><span class="fr">prêt ?</span><span class="zh">準備好了嗎？</span></p>
+  <h2><span class="en">Stop hunting for the right window</span><span class="fr">Arrêtez de chasser la bonne fenêtre</span><span class="zh">別再到處找那個視窗</span></h2>
+  <p class="lead" style="margin:0 auto 6px"><span class="en">Free and native. macOS 26 or later.</span><span class="fr">Gratuite et native. macOS 26 ou ultérieur.</span><span class="zh">免費、原生。macOS 26 或以上版本。</span></p>
   <div class="cta">
-    <a class="btn btn-primary" href="https://github.com/vincentlauriat/AppsSwitch/releases/latest">⬇︎ Download for macOS</a>
-    <a class="btn btn-ghost" href="https://github.com/vincentlauriat/AppsSwitch#readme">Read the docs</a>
+    <a class="btn btn-primary" href="https://github.com/vincentlauriat/AppsSwitch/releases/latest">⬇︎ <span class="en">Download for macOS</span><span class="fr">Télécharger pour macOS</span><span class="zh">下載 macOS 版</span></a>
+    <a class="btn btn-ghost" href="https://github.com/vincentlauriat/AppsSwitch#readme"><span class="en">Read the docs</span><span class="fr">Lire la doc</span><span class="zh">閱讀說明文件</span></a>
   </div>
 </div></section>
 
 <footer><div class="wrap">
-  AppsSwitch · MIT License · © 2026 Vincent Lauriat ·
+  AppsSwitch · <span class="en">MIT License</span><span class="fr">Licence MIT</span><span class="zh">MIT 授權</span> · © 2026 Vincent Lauriat ·
   <a href="https://github.com/vincentlauriat/AppsSwitch">github.com/vincentlauriat/AppsSwitch</a>
   · <a href="https://lauriat.fr/outils/appsswitch/">lauriat.fr</a>
 </div></footer>
 
+<script>
+  /* zh-Hant et non zh : sur un système configuré en chinois simplifié, un
+     simple `zh` laisse le navigateur choisir une fonte Han simplifiée, qui
+     rend certains caractères traditionnels dans la mauvaise forme. */
+  var LANG_TAG={en:'en',fr:'fr',zh:'zh-Hant'};
+  function setLang(l){
+    if(!LANG_TAG[l]) l='en';
+    document.body.classList.remove('lang-en','lang-fr','lang-zh');
+    document.body.classList.add('lang-'+l);
+    document.documentElement.lang=LANG_TAG[l];
+    /* On boucle sur les boutons au lieu de les nommer un par un : ajouter une
+       4e langue ne demandera alors aucune retouche de ce script. */
+    document.querySelectorAll('.langtog button').forEach(function(b){
+      var on=b.dataset.lang===l;
+      b.classList.toggle('on',on);
+      b.setAttribute('aria-pressed',on?'true':'false');
+    });
+    try{localStorage.setItem('vl-lang',l)}catch(e){}
+  }
+  (function(){
+    var saved;try{saved=localStorage.getItem('vl-lang')}catch(e){}
+    var n=(navigator.language||'en').slice(0,2).toLowerCase();
+    /* Le traditionnel est servi a tout visiteur sinophone, y compris zh-CN :
+       c'est la seule variante chinoise disponible, et la renvoyer vaut mieux
+       que de rabattre ce visiteur sur l'anglais. */
+    setLang(saved||(n==='zh'?'zh':(n==='fr'?'fr':'en')));
+  })();
+</script>
 </body>
 </html>
