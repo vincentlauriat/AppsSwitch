@@ -1,0 +1,108 @@
+{
+  "name": "AppsSwitch",
+  "no": "14",
+  "repo": "vincentlauriat/AppsSwitch",
+  "url": "https://vincentlauriat.github.io/AppsSwitch/",
+  "accent": "#f472b6",
+  "meta": {
+    "title": "AppsSwitch — Alt-Tab style window switcher for macOS",
+    "description": "A native macOS menu bar app that cycles through every individual open window — not just apps — via ⌥Tab / ⌥⇧Tab, with a live-thumbnail overlay powered by ScreenCaptureKit. Free & open-source (MIT).",
+    "og_image": "https://vincentlauriat.github.io/AppsSwitch/icon-512.png",
+    "favicon": "icon-512.png"
+  },
+  "role": {
+    "en": "Alt-Tab style window switcher for macOS",
+    "fr": "Sélecteur de fenêtres façon Alt-Tab pour macOS",
+    "zh": "macOS 上的 Alt-Tab 式視窗切換器"
+  },
+  "thesis": {
+    "en": "Every window, not just apps.",
+    "fr": "Toutes les fenêtres, pas seulement les apps.",
+    "zh": "每一個視窗，而不只是應用程式。"
+  },
+  "lede": {
+    "en": "Cmd-Tab only cycles between apps. If Terminal has 4 windows open and another app has 2, Cmd-Tab offers 2 slots — AppsSwitch offers 6, Windows Alt-Tab style, with a live thumbnail of every window.",
+    "fr": "Cmd-Tab ne circule qu'entre les apps. Si Terminal a 4 fenêtres ouvertes et une autre app 2, Cmd-Tab propose 2 entrées — AppsSwitch en propose 6, à la façon d'Alt-Tab sous Windows, avec une miniature live de chaque fenêtre.",
+    "zh": "Cmd-Tab 只在應用程式之間循環。若終端機開了 4 個視窗、另一個 app 開了 2 個，Cmd-Tab 只給你 2 個選項——AppsSwitch 給你 6 個，像 Windows 的 Alt-Tab 一樣，每個視窗都附即時縮圖。"
+  },
+  "actions": [
+    {"primary": true, "href": "https://github.com/vincentlauriat/AppsSwitch/releases/latest",
+     "label": {"en": "Download for macOS", "fr": "Télécharger pour macOS", "zh": "下載 macOS 版"}},
+    {"href": "https://github.com/vincentlauriat/AppsSwitch",
+     "label": {"en": "View on GitHub", "fr": "Voir sur GitHub", "zh": "在 GitHub 上檢視"}}
+  ],
+  "facts": [
+    {"k": {"en": "Gesture", "fr": "Geste", "zh": "手勢"},
+     "v": {"en": "Hold ⌥ and press <b>Tab</b> — from your menu bar", "fr": "Maintenez ⌥ et appuyez sur <b>Tab</b> — depuis la barre de menus", "zh": "按住 ⌥ 再按 <b>Tab</b>——就在你的選單列"}},
+    {"k": {"en": "Requires", "fr": "Configuration", "zh": "系統需求"}, "v": "macOS 26+"},
+    {"k": {"en": "Distribution", "fr": "Distribution", "zh": "發行"},
+     "v": {"en": "Signed &amp; notarized", "fr": "Signé et notarié", "zh": "已簽章與公證"}},
+    {"k": {"en": "Licence", "fr": "Licence", "zh": "授權"},
+     "v": {"en": "Free &amp; open-source (MIT)", "fr": "Gratuit et open source (MIT)", "zh": "免費開源（MIT）"}}
+  ],
+  "opener": {
+    "h": {"en": "Every window is one Tab away", "fr": "Chaque fenêtre à une touche Tab", "zh": "每個視窗都只差一個 Tab"},
+    "p": {"en": "Built on ScreenCaptureKit and a CGEventTap that owns the ⌥Tab gesture — no accessibility hacks, no third-party hotkey library.",
+          "fr": "Bâtie sur ScreenCaptureKit et un CGEventTap qui possède le geste ⌥Tab — sans bidouille d'accessibilité, sans bibliothèque de raccourcis tierce.",
+          "zh": "以 ScreenCaptureKit 與一個掌握 ⌥Tab 手勢的 CGEventTap 打造——不靠輔助使用的取巧手法，也不用第三方快速鍵函式庫。"}
+  },
+  "features": [
+    {"h": {"en": "Cycle every window", "fr": "Circulez entre toutes les fenêtres", "zh": "循環切換每個視窗"},
+     "p": {"en": "⌥Tab moves forward, ⌥⇧Tab moves back, through every individual open window — not just between apps.",
+           "fr": "⌥Tab avance, ⌥⇧Tab recule, à travers chaque fenêtre ouverte — pas seulement entre les apps.",
+           "zh": "⌥Tab 往前、⌥⇧Tab 往後，逐一走過每個開啟中的視窗——而不只是在應用程式之間。"}},
+    {"h": {"en": "Live thumbnails", "fr": "Miniatures en direct", "zh": "即時縮圖"},
+     "p": {"en": "Each window is captured live via ScreenCaptureKit — a real preview, not a stale app icon.",
+           "fr": "Chaque fenêtre est capturée en direct via ScreenCaptureKit — un vrai aperçu, pas une icône figée.",
+           "zh": "每個視窗都透過 ScreenCaptureKit 即時擷取——是真正的預覽，而不是一張過時的應用程式圖示。"}},
+    {"h": {"en": "Exact activation", "fr": "Activation exacte", "zh": "精準切換"},
+     "p": {"en": "Releasing Option activates exactly the window you selected — not just the app's frontmost window.",
+           "fr": "Relâcher Option active exactement la fenêtre choisie — pas seulement la fenêtre au premier plan de l'app.",
+           "zh": "放開 Option 鍵，啟用的正是你選中的那個視窗——而不只是該應用程式最前面的視窗。"}},
+    {"h": {"en": "Guided permissions", "fr": "Autorisations guidées", "zh": "引導式權限設定"},
+     "p": {"en": "A friendly onboarding requests Accessibility and Screen Recording, with deep links straight to System Settings.",
+           "fr": "Un accueil clair demande l'Accessibilité et l'Enregistrement de l'écran, avec des liens directs vers les Réglages Système.",
+           "zh": "友善的引導流程會請求「輔助使用」與「螢幕錄製」權限，並提供直接跳往系統設定的連結。"}},
+    {"h": {"en": "Keyboard-first", "fr": "Tout au clavier", "zh": "以鍵盤為先"},
+     "p": {"en": "<code>⌥Tab</code> / <code>⌥⇧Tab</code> to cycle, release Option to activate, <code>Esc</code> to cancel.",
+           "fr": "<code>⌥Tab</code> / <code>⌥⇧Tab</code> pour circuler, relâchez Option pour activer, <code>Échap</code> pour annuler.",
+           "zh": "以 <code>⌥Tab</code>／<code>⌥⇧Tab</code> 循環，放開 Option 即切換，按 <code>Esc</code> 取消。"}},
+    {"h": {"en": "Menu bar only", "fr": "Barre de menus uniquement", "zh": "只待在選單列"},
+     "p": {"en": "No dock icon, no main window — just a quiet menu bar item to check permissions or quit.",
+           "fr": "Pas d'icône dans le Dock, pas de fenêtre principale — juste un élément discret en barre de menus pour vérifier les autorisations ou quitter.",
+           "zh": "沒有 Dock 圖示，也沒有主視窗——只有一個安靜的選單列項目，用來檢查權限或結束程式。"}}
+  ],
+  "chapters": [
+    {"id": "install",
+     "h": {"en": "Up and running in 30 seconds", "fr": "Opérationnel en 30 secondes", "zh": "30 秒內開始使用"},
+     "p": {"en": "Signed, notarized and Hardened-Runtime — it opens without any Gatekeeper warning.",
+           "fr": "Signée, notariée et en Hardened Runtime — elle s'ouvre sans aucun avertissement Gatekeeper.",
+           "zh": "已簽章、已公證並啟用 Hardened Runtime——開啟時不會出現任何 Gatekeeper 警告。"},
+     "blocks": [
+       {"type": "steps", "items": [
+         {"en": "<b>Download.</b> Grab the latest <code>.dmg</code> from GitHub Releases and mount it.",
+          "fr": "<b>Télécharger.</b> Récupérez le dernier <code>.dmg</code> depuis GitHub Releases et montez-le.",
+          "zh": "<b>下載。</b>從 GitHub Releases 取得最新的 <code>.dmg</code> 並掛載。"},
+         {"en": "<b>Install.</b> Drag <code>AppsSwitch.app</code> into <code>/Applications</code>.",
+          "fr": "<b>Installer.</b> Glissez <code>AppsSwitch.app</code> dans <code>/Applications</code>.",
+          "zh": "<b>安裝。</b>將 <code>AppsSwitch.app</code> 拖入 <code>/Applications</code>。"},
+         {"en": "<b>Launch.</b> Open it, grant Accessibility &amp; Screen Recording when asked. Requires macOS 26 or later.",
+          "fr": "<b>Lancer.</b> Ouvrez-la et accordez l'Accessibilité et l'Enregistrement de l'écran quand c'est demandé. Nécessite macOS 26 ou ultérieur.",
+          "zh": "<b>啟動。</b>開啟它，並在詢問時授予「輔助使用」與「螢幕錄製」權限。需要 macOS 26 或以上版本。"}
+       ]}
+     ]}
+  ],
+  "close": {
+    "h": {"en": "Stop hunting for the right window", "fr": "Arrêtez de chasser la bonne fenêtre", "zh": "別再到處找那個視窗"},
+    "p": {"en": "Free and native. macOS 26 or later.", "fr": "Gratuite et native. macOS 26 ou ultérieur.", "zh": "免費、原生。macOS 26 或以上版本。"},
+    "actions": [
+      {"primary": true, "href": "https://github.com/vincentlauriat/AppsSwitch/releases/latest",
+       "label": {"en": "Download for macOS", "fr": "Télécharger pour macOS", "zh": "下載 macOS 版"}},
+      {"href": "https://github.com/vincentlauriat/AppsSwitch#readme",
+       "label": {"en": "Read the docs", "fr": "Lire la doc", "zh": "閱讀說明文件"}}
+    ]
+  },
+  "colophon": {
+    "notes": ["<a href=\"https://lauriat.fr/outils/appsswitch/\">lauriat.fr</a>"]
+  }
+}
